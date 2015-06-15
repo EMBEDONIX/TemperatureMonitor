@@ -24,6 +24,7 @@ namespace TempMonitor.UserInterface
         private SerialPort _port;
         private DataReader _reader;
         //private bool _isBusy = false;
+        private int hahahagitlol;
 
         public MainForm()
         {
