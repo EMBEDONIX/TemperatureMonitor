@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusPanel = new MetroFramework.Controls.MetroPanel();
             this.labelRxState = new MetroFramework.Controls.MetroLabel();
             this.pictureBoxStatus = new System.Windows.Forms.PictureBox();
@@ -134,6 +135,7 @@
             this.ClientSize = new System.Drawing.Size(1025, 693);
             this.Controls.Add(this.statusPanel);
             this.Controls.Add(this.sensorPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Temperature Monitor";
             this.Load += new System.EventHandler(this.MainForm_Load);
