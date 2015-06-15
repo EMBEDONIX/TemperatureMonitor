@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using MetroFramework.Controls;
 using MetroFramework.Interfaces;
 
@@ -21,23 +13,22 @@ namespace TempMonitor.Controls
 
         private void SensorPanel_Load(object sender, EventArgs e)
         {
-
         }
 
         public void AddSample(GraphPoint sample, int sensorNumber)
         {
             switch (sensorNumber)
             {
-                    case 1:
+                case 1:
                     sensor1.AddSample(sample);
                     break;
-                    case 2:
+                case 2:
                     sensor2.AddSample(sample);
                     break;
-                    case 3:
+                case 3:
                     sensor3.AddSample(sample);
                     break;
-                    case 4:
+                case 4:
                     sensor4.AddSample(sample);
                     break;
             }
@@ -45,17 +36,16 @@ namespace TempMonitor.Controls
 
         public void AddSample(GraphPoint[] samples)
         {
-
             decimal sum = 0;
 
-            for (int i = 0; i < samples.Length; i++)
+            for (var i = 0; i < samples.Length; i++)
             {
-                var j =  int.Parse(samples[i].SourceName);
+                var j = int.Parse(samples[i].SourceName);
                 sum += samples[i].Value;
                 AddSample(samples[i], j);
             }
 
-            sensorAgg.AddSample(new GraphPoint(samples[0].ReceiveTime, "AGG", sum /4M, false));
+            sensorAgg.AddSample(new GraphPoint(samples[0].ReceiveTime, "AGG", sum/4M, false));
         }
     }
 }

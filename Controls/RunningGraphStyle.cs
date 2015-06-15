@@ -1,114 +1,97 @@
-using System;
 using System.ComponentModel;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace SpPerfChart
 {
-    [TypeConverterAttribute(typeof(ExpandableObjectConverter))]
+    [TypeConverter(typeof (ExpandableObjectConverter))]
     public class RunningGraphStyle
     {
-        private ChartPen verticalGridPen;
-        private ChartPen horizontalGridPen;
-        private ChartPen avgLinePen;
-        private ChartPen chartLinePen;
-
-        private Color backgroundColorTop = Color.DarkGreen;
-        private Color backgroundColorBottom = Color.DarkGreen;
-
-        private bool showVerticalGridLines = true;
-        private bool showHorizontalGridLines = true;
-        private bool showAverageLine = true;
         private bool antiAliasing = true;
+        private Color backgroundColorBottom = Color.DarkGreen;
+        private Color backgroundColorTop = Color.DarkGreen;
+        private bool showAverageLine = true;
+        private bool showHorizontalGridLines = true;
+        private bool showVerticalGridLines = true;
 
-        public RunningGraphStyle() {
-            verticalGridPen = new ChartPen();
-            horizontalGridPen = new ChartPen();
-            avgLinePen = new ChartPen();
-            chartLinePen = new ChartPen();
+        public RunningGraphStyle()
+        {
+            VerticalGridPen = new ChartPen();
+            HorizontalGridPen = new ChartPen();
+            AvgLinePen = new ChartPen();
+            ChartLinePen = new ChartPen();
         }
 
-        public bool ShowVerticalGridLines {
+        public bool ShowVerticalGridLines
+        {
             get { return showVerticalGridLines; }
             set { showVerticalGridLines = value; }
         }
 
-        public bool ShowHorizontalGridLines {
+        public bool ShowHorizontalGridLines
+        {
             get { return showHorizontalGridLines; }
             set { showHorizontalGridLines = value; }
         }
 
-        public bool ShowAverageLine {
+        public bool ShowAverageLine
+        {
             get { return showAverageLine; }
             set { showAverageLine = value; }
         }
 
-        public ChartPen VerticalGridPen {
-            get { return verticalGridPen; }
-            set { verticalGridPen = value; }
-        }
+        public ChartPen VerticalGridPen { get; set; }
+        public ChartPen HorizontalGridPen { get; set; }
+        public ChartPen AvgLinePen { get; set; }
+        public ChartPen ChartLinePen { get; set; }
 
-        public ChartPen HorizontalGridPen {
-            get { return horizontalGridPen; }
-            set { horizontalGridPen = value; }
-        }
-
-        public ChartPen AvgLinePen {
-            get { return avgLinePen; }
-            set { avgLinePen = value; }
-        }
-
-        public ChartPen ChartLinePen {
-            get { return chartLinePen; }
-            set { chartLinePen = value; }
-        }
-
-        public bool AntiAliasing {
+        public bool AntiAliasing
+        {
             get { return antiAliasing; }
             set { antiAliasing = value; }
         }
 
-        public Color BackgroundColorTop {
+        public Color BackgroundColorTop
+        {
             get { return backgroundColorTop; }
             set { backgroundColorTop = value; }
         }
 
-        public Color BackgroundColorBottom {
+        public Color BackgroundColorBottom
+        {
             get { return backgroundColorBottom; }
             set { backgroundColorBottom = value; }
         }
     }
 
-    [TypeConverterAttribute(typeof(ExpandableObjectConverter))]
+    [TypeConverter(typeof (ExpandableObjectConverter))]
     public class ChartPen
     {
-        private Pen pen;
-
-        public ChartPen() {
-            pen = new Pen(Color.Black);
+        public ChartPen()
+        {
+            Pen = new Pen(Color.Black);
         }
 
-        public Color Color {
-            get { return pen.Color; }
-            set { pen.Color = value; }
+        public Color Color
+        {
+            get { return Pen.Color; }
+            set { Pen.Color = value; }
         }
 
-        public System.Drawing.Drawing2D.DashStyle DashStyle {
-            get { return pen.DashStyle; }
-            set { pen.DashStyle = value; }
+        public DashStyle DashStyle
+        {
+            get { return Pen.DashStyle; }
+            set { Pen.DashStyle = value; }
         }
 
-        public float Width {
-            get { return pen.Width; }
-            set { pen.Width = value; }
+        public float Width
+        {
+            get { return Pen.Width; }
+            set { Pen.Width = value; }
         }
 
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Pen Pen {
-            get { return pen; }
-        }
+        public Pen Pen { get; private set; }
     }
 }
