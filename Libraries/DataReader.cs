@@ -77,6 +77,8 @@ namespace TempMonitor.Libraries
                 }
                 catch (Exception e)
                 {
+
+                    //TODO proper behaviour for SyncStatedChanged event based on crashcount
                     crashCount++;
                     Debug.WriteLine("Error in reading buffer: " + e.Message);
                     SyncStateChanged(this, new SyncStateChangedEventArgs(_port.PortName, _port, SyncState.OutOfSync));
