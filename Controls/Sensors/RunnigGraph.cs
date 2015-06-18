@@ -6,7 +6,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using TempMonitor.Controls;
 
-namespace SpPerfChart
+namespace SensorChart
 {
     /// <summary>
     ///     Scale mode for value aspect ratio
@@ -66,7 +66,7 @@ namespace SpPerfChart
             InitializeComponent();
 
             // Initialize Variables
-            PerfChartStyle = new RunningGraphStyle();
+            ChartStyle = new RunningGraphStyle();
 
             // Set Optimized Double Buffer to reduce flickering
             SetStyle(ControlStyles.UserPaint, true);
@@ -122,7 +122,7 @@ namespace SpPerfChart
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content), Category("Appearance"),
          Description("Appearance and Style")]
-        public RunningGraphStyle PerfChartStyle { get; set; }
+        public RunningGraphStyle ChartStyle { get; set; }
 
 
         [DefaultValue(typeof (Border3DStyle), "Sunken"), Description("BorderStyle"), Category("Appearance")]
@@ -360,7 +360,7 @@ namespace SpPerfChart
             var currentPoint = new Point();
 
             // Only draw average line when possible (visibleValues) and needed (style setting)
-            if (visibleValues > 0 && PerfChartStyle.ShowAverageLine)
+            if (visibleValues > 0 && ChartStyle.ShowAverageLine)
             {
                 averageOfVisibleValues = 0;
                 DrawAverageLine(g);
@@ -373,7 +373,7 @@ namespace SpPerfChart
                 currentPoint.Y = CalcVerticalPosition(drawValues[i]);
 
                 // Actually draw the line
-                g.DrawLine(PerfChartStyle.ChartLinePen.Pen, previousPoint, currentPoint);
+                g.DrawLine(ChartStyle.ChartLinePen.Pen, previousPoint, currentPoint);
 
                 previousPoint = currentPoint;
             }
@@ -392,10 +392,10 @@ namespace SpPerfChart
             //int verticalPosition = CalcVerticalPosition(averageOfVisibleValues);
 
             var verticalPosition = CalcVerticalPosition(averageTotal);
-            var before = PerfChartStyle.AvgLinePen.Pen.Color;
-            PerfChartStyle.AvgLinePen.Pen.Color = Color.SpringGreen;
-            g.DrawLine(PerfChartStyle.AvgLinePen.Pen, 0, verticalPosition, Width, verticalPosition);
-            PerfChartStyle.AvgLinePen.Pen.Color = before;
+            var before = ChartStyle.AvgLinePen.Pen.Color;
+            ChartStyle.AvgLinePen.Pen.Color = Color.SpringGreen;
+            g.DrawLine(ChartStyle.AvgLinePen.Pen, 0, verticalPosition, Width, verticalPosition);
+            ChartStyle.AvgLinePen.Pen.Color = before;
         }
 
         /// <summary>
@@ -407,27 +407,27 @@ namespace SpPerfChart
             // Draw the background Gradient rectangle
             var baseRectangle = new Rectangle(0, 0, Width, Height);
             using (
-                Brush gradientBrush = new LinearGradientBrush(baseRectangle, PerfChartStyle.BackgroundColorTop,
-                    PerfChartStyle.BackgroundColorBottom, LinearGradientMode.Vertical))
+                Brush gradientBrush = new LinearGradientBrush(baseRectangle, ChartStyle.BackgroundColorTop,
+                    ChartStyle.BackgroundColorBottom, LinearGradientMode.Vertical))
             {
                 g.FillRectangle(gradientBrush, baseRectangle);
             }
 
             // Draw all visible, vertical gridlines (if wanted)
-            if (PerfChartStyle.ShowVerticalGridLines)
+            if (ChartStyle.ShowVerticalGridLines)
             {
                 for (var i = Width - gridScrollOffset; i >= 0; i -= GRID_SPACING)
                 {
-                    g.DrawLine(PerfChartStyle.VerticalGridPen.Pen, i, 0, i, Height);
+                    g.DrawLine(ChartStyle.VerticalGridPen.Pen, i, 0, i, Height);
                 }
             }
 
             // Draw all visible, horizontal gridlines (if wanted)
-            if (PerfChartStyle.ShowHorizontalGridLines)
+            if (ChartStyle.ShowHorizontalGridLines)
             {
                 for (var i = 0; i < Height; i += GRID_SPACING)
                 {
-                    g.DrawLine(PerfChartStyle.HorizontalGridPen.Pen, 0, i, Width, i);
+                    g.DrawLine(ChartStyle.HorizontalGridPen.Pen, 0, i, Width, i);
                 }
             }
         }
@@ -442,7 +442,7 @@ namespace SpPerfChart
             base.OnPaint(e);
 
             // Enable AntiAliasing, if needed
-            if (PerfChartStyle.AntiAliasing)
+            if (ChartStyle.AntiAliasing)
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             DrawBackgroundAndGrid(e.Graphics);

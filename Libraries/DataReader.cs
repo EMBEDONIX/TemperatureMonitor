@@ -65,8 +65,8 @@ namespace TempMonitor.Libraries
                         if (bufferList[sIndex + Protocol.PacketSize - 2] == 0
                             && bufferList[sIndex + Protocol.PacketSize - 1] == Protocol.StopByte)
                         {
-                            var shit = bufferList.Skip(sIndex).Take(Protocol.PacketSize).ToArray();
-                            OnPacketReceived(shit);
+                            var packet = bufferList.Skip(sIndex).Take(Protocol.PacketSize).ToArray();
+                            OnPacketReceived(packet);
                         }
                     }
 

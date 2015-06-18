@@ -16,5 +16,6 @@ namespace TempMonitor.Controls
 
             tbSamples.AppendText(dt + "\t" + val + Environment.NewLine);
         }
+
     }
 }

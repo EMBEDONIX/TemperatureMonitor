@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace SpPerfChart
+namespace SensorChart
 {
     [TypeConverter(typeof (ExpandableObjectConverter))]
     public class RunningGraphStyle
