@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            SpPerfChart.ChartPen chartPen1 = new SpPerfChart.ChartPen();
-            SpPerfChart.ChartPen chartPen2 = new SpPerfChart.ChartPen();
-            SpPerfChart.ChartPen chartPen3 = new SpPerfChart.ChartPen();
-            SpPerfChart.ChartPen chartPen4 = new SpPerfChart.ChartPen();
+            SensorChart.ChartPen chartPen1 = new SensorChart.ChartPen();
+            SensorChart.ChartPen chartPen2 = new SensorChart.ChartPen();
+            SensorChart.ChartPen chartPen3 = new SensorChart.ChartPen();
+            SensorChart.ChartPen chartPen4 = new SensorChart.ChartPen();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
@@ -40,7 +40,7 @@
             this.labelAverage = new MetroFramework.Controls.MetroLabel();
             this.panelLabels = new MetroFramework.Controls.MetroPanel();
             this.labelName = new MetroFramework.Controls.MetroLabel();
-            this.graph = new SpPerfChart.RunnigGraph();
+            this.graph = new SensorChart.RunnigGraph();
             this.panelLabels.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -124,6 +124,7 @@
             this.labelName.Size = new System.Drawing.Size(126, 25);
             this.labelName.TabIndex = 2;
             this.labelName.Text = "Channel Name";
+            this.labelName.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.labelName_MouseDoubleClick);
             // 
             // graph
             // 
@@ -132,33 +133,33 @@
             this.graph.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
             this.graph.Location = new System.Drawing.Point(3, 39);
             this.graph.Name = "graph";
-            this.graph.PerfChartStyle.AntiAliasing = true;
+            this.graph.ChartStyle.AntiAliasing = true;
             chartPen1.Color = System.Drawing.Color.Black;
             chartPen1.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             chartPen1.Width = 1F;
-            this.graph.PerfChartStyle.AvgLinePen = chartPen1;
-            this.graph.PerfChartStyle.BackgroundColorBottom = System.Drawing.Color.DodgerBlue;
-            this.graph.PerfChartStyle.BackgroundColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.graph.ChartStyle.AvgLinePen = chartPen1;
+            this.graph.ChartStyle.BackgroundColorBottom = System.Drawing.Color.DodgerBlue;
+            this.graph.ChartStyle.BackgroundColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
             chartPen2.Color = System.Drawing.Color.Gold;
             chartPen2.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             chartPen2.Width = 2F;
-            this.graph.PerfChartStyle.ChartLinePen = chartPen2;
+            this.graph.ChartStyle.ChartLinePen = chartPen2;
             chartPen3.Color = System.Drawing.Color.Black;
             chartPen3.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
             chartPen3.Width = 0.5F;
-            this.graph.PerfChartStyle.HorizontalGridPen = chartPen3;
-            this.graph.PerfChartStyle.ShowAverageLine = true;
-            this.graph.PerfChartStyle.ShowHorizontalGridLines = true;
-            this.graph.PerfChartStyle.ShowVerticalGridLines = false;
+            this.graph.ChartStyle.HorizontalGridPen = chartPen3;
+            this.graph.ChartStyle.ShowAverageLine = true;
+            this.graph.ChartStyle.ShowHorizontalGridLines = true;
+            this.graph.ChartStyle.ShowVerticalGridLines = false;
             chartPen4.Color = System.Drawing.Color.DarkRed;
             chartPen4.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             chartPen4.Width = 1F;
-            this.graph.PerfChartStyle.VerticalGridPen = chartPen4;
-            this.graph.ScaleMode = SpPerfChart.ScaleMode.Relative;
+            this.graph.ChartStyle.VerticalGridPen = chartPen4;
+            this.graph.ScaleMode = SensorChart.ScaleMode.Relative;
             this.graph.Size = new System.Drawing.Size(396, 228);
             this.graph.TabIndex = 0;
             this.graph.TimerInterval = 1000;
-            this.graph.TimerMode = SpPerfChart.TimerMode.Disabled;
+            this.graph.TimerMode = SensorChart.TimerMode.Disabled;
             // 
             // SensorBase
             // 
@@ -184,7 +185,7 @@
 
         #endregion
 
-        protected SpPerfChart.RunnigGraph graph;
+        protected SensorChart.RunnigGraph graph;
         protected MetroFramework.Controls.MetroLabel metroLabel1;
         protected MetroFramework.Controls.MetroLabel metroLabel2;
         protected MetroFramework.Controls.MetroLabel metroLabel3;

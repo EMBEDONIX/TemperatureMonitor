@@ -28,38 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            SpPerfChart.ChartPen chartPen9 = new SpPerfChart.ChartPen();
-            SpPerfChart.ChartPen chartPen10 = new SpPerfChart.ChartPen();
-            SpPerfChart.ChartPen chartPen11 = new SpPerfChart.ChartPen();
-            SpPerfChart.ChartPen chartPen12 = new SpPerfChart.ChartPen();
+            SensorChart.ChartPen chartPen9 = new SensorChart.ChartPen();
+            SensorChart.ChartPen chartPen10 = new SensorChart.ChartPen();
+            SensorChart.ChartPen chartPen11 = new SensorChart.ChartPen();
+            SensorChart.ChartPen chartPen12 = new SensorChart.ChartPen();
             this.tbSamples = new MetroFramework.Controls.MetroTextBox();
             this.panelLabels.SuspendLayout();
             this.SuspendLayout();
             // 
             // graph
             // 
-            this.graph.PerfChartStyle.AntiAliasing = true;
+            this.graph.ChartStyle.AntiAliasing = true;
             chartPen9.Color = System.Drawing.Color.Black;
             chartPen9.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             chartPen9.Width = 1F;
-            this.graph.PerfChartStyle.AvgLinePen = chartPen9;
-            this.graph.PerfChartStyle.BackgroundColorBottom = System.Drawing.Color.DodgerBlue;
-            this.graph.PerfChartStyle.BackgroundColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.graph.ChartStyle.AvgLinePen = chartPen9;
+            this.graph.ChartStyle.BackgroundColorBottom = System.Drawing.Color.DodgerBlue;
+            this.graph.ChartStyle.BackgroundColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
             chartPen10.Color = System.Drawing.Color.Gold;
             chartPen10.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             chartPen10.Width = 2F;
-            this.graph.PerfChartStyle.ChartLinePen = chartPen10;
+            this.graph.ChartStyle.ChartLinePen = chartPen10;
             chartPen11.Color = System.Drawing.Color.Black;
             chartPen11.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
             chartPen11.Width = 0.5F;
-            this.graph.PerfChartStyle.HorizontalGridPen = chartPen11;
-            this.graph.PerfChartStyle.ShowAverageLine = true;
-            this.graph.PerfChartStyle.ShowHorizontalGridLines = true;
-            this.graph.PerfChartStyle.ShowVerticalGridLines = false;
+            this.graph.ChartStyle.HorizontalGridPen = chartPen11;
+            this.graph.ChartStyle.ShowAverageLine = true;
+            this.graph.ChartStyle.ShowHorizontalGridLines = true;
+            this.graph.ChartStyle.ShowVerticalGridLines = false;
             chartPen12.Color = System.Drawing.Color.DarkRed;
             chartPen12.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             chartPen12.Width = 1F;
-            this.graph.PerfChartStyle.VerticalGridPen = chartPen12;
+            this.graph.ChartStyle.VerticalGridPen = chartPen12;
             this.panelLabels.Controls.SetChildIndex(this.labelName, 0);
             // 
             // tbSamples

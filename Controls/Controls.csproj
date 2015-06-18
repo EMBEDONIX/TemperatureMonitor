@@ -56,72 +56,99 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GraphPoint.cs" />
+    <Compile Include="Dialogs\DialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DialogForm.Designer.cs">
+      <DependentUpon>DialogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SensorSettingsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SensorSettingsDialog.Designer.cs">
+      <DependentUpon>SensorSettingsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SensorOptionsDialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SensorOptionsDialogForm.Designer.cs">
+      <DependentUpon>SensorOptionsDialogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sensors\Class1.cs" />
+    <Compile Include="Sensors\TemperatureStateEventArgs.cs" />
+    <Compile Include="Sensors\GraphPoint.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RunningGraphStyle.cs">
+    <Compile Include="Sensors\RunningGraphStyle.cs">
     </Compile>
-    <Compile Include="RunnigGraph.cs">
+    <Compile Include="Sensors\RunnigGraph.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RunnigGraph.Designer.cs">
+    <Compile Include="Sensors\RunnigGraph.Designer.cs">
       <DependentUpon>RunnigGraph.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SensorBase.cs">
+    <Compile Include="Sensors\SensorBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SensorBase.Designer.cs">
+    <Compile Include="Sensors\SensorBase.Designer.cs">
       <DependentUpon>SensorBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="SensorPanel.cs">
+    <Compile Include="Sensors\SensorOptions.cs" />
+    <Compile Include="Sensors\SensorPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SensorPanel.Designer.cs">
+    <Compile Include="Sensors\SensorPanel.Designer.cs">
       <DependentUpon>SensorPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="SensorWithTextBox.cs">
+    <Compile Include="Sensors\SensorSettings.cs" />
+    <Compile Include="Sensors\SensorWithTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SensorWithTextBox.Designer.cs">
+    <Compile Include="Sensors\SensorWithTextBox.Designer.cs">
       <DependentUpon>SensorWithTextBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="SerializerManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Dialogs\DialogForm.resx">
+      <DependentUpon>DialogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SensorSettingsDialog.resx">
+      <DependentUpon>SensorSettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SensorOptionsDialogForm.resx">
+      <DependentUpon>SensorOptionsDialogForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunnigGraph.resx">
+    <EmbeddedResource Include="Sensors\RunnigGraph.resx">
       <SubType>Designer</SubType>
       <DependentUpon>RunnigGraph.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SensorBase.resx">
+    <EmbeddedResource Include="Sensors\SensorBase.resx">
       <DependentUpon>SensorBase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SensorPanel.resx">
+    <EmbeddedResource Include="Sensors\SensorPanel.resx">
       <DependentUpon>SensorPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SensorWithTextBox.resx">
+    <EmbeddedResource Include="Sensors\SensorWithTextBox.resx">
       <DependentUpon>SensorWithTextBox.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Keys\PerfChartDefault.snk" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\edit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="tempmonitor.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,4 @@
-﻿namespace SpPerfChart
+﻿namespace SensorChart
 {
     partial class RunnigGraph
     {

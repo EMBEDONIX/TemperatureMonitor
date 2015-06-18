@@ -29,6 +29,7 @@ namespace TempMonitor.UserInterface
         private void MainForm_Load(object sender, EventArgs e)
         {
             RefreshPresentComPorts();
+            sensorPanel.UpdateSensorSettings();
         }
 
         private void RefreshPresentComPorts()
@@ -45,7 +46,7 @@ namespace TempMonitor.UserInterface
             }
             else
             {
-                MessageBox.Show("Can not find any COM ports on this PC!");
+                //MessageBox.Show("Can not find any COM ports on this PC!");
             }
         }
 
