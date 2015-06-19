@@ -16,9 +16,11 @@ namespace TempMonitor.Controls.Sensors
     public static class SerializerManager
     {
 
-        public static string OptionsPath = Application.StartupPath + Path.DirectorySeparatorChar + "options" + Path.DirectorySeparatorChar;
+        public static string OptionsFolder = Application.StartupPath + Path.DirectorySeparatorChar + "options" + Path.DirectorySeparatorChar;
 
-        private static string _optionsFile = OptionsPath + Path.DirectorySeparatorChar + "options.bin";
+        public static string OptionsFileName = "options.bin";
+
+        public static string OptionsFile = OptionsFolder + OptionsFileName;
 
 
         /// <summary>
@@ -30,9 +32,9 @@ namespace TempMonitor.Controls.Sensors
         public static void SerializeObject<T>(T serializableObject, string fileName)
         {
 
-            if (!Directory.Exists(Path.GetFullPath(OptionsPath)))
+            if (!Directory.Exists(Path.GetFullPath(OptionsFolder)))
             {
-                Directory.CreateDirectory(OptionsPath);
+                Directory.CreateDirectory(OptionsFolder);
             }
 
                 if (serializableObject == null) { return; }

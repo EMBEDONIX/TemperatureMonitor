@@ -30,9 +30,9 @@ namespace TempMonitor.Controls.Sensors
             CurrentTemp = currentTemp;
             AlarmPoint = alarmPoint;
             if(State == AlarmState.Critical)
-                TextToSpeech = "Warning! " + SensorName + " is critical";
+                TextToSpeech = SensorName + " critical!";
             if (State == AlarmState.Normal)
-                TextToSpeech = "" + SensorName + " is back to normal";
+                TextToSpeech = SensorName + " normal.";
         }
     }
 }

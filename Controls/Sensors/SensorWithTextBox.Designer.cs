@@ -1,4 +1,6 @@
-﻿namespace TempMonitor.Controls
+﻿using MetroFramework.Controls;
+
+namespace TempMonitor.Controls
 {
     partial class SensorWithTextBox
     {
@@ -28,10 +30,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            SensorChart.ChartPen chartPen9 = new SensorChart.ChartPen();
-            SensorChart.ChartPen chartPen10 = new SensorChart.ChartPen();
-            SensorChart.ChartPen chartPen11 = new SensorChart.ChartPen();
-            SensorChart.ChartPen chartPen12 = new SensorChart.ChartPen();
+            SensorChart.ChartPen chartPen1 = new SensorChart.ChartPen();
+            SensorChart.ChartPen chartPen2 = new SensorChart.ChartPen();
+            SensorChart.ChartPen chartPen3 = new SensorChart.ChartPen();
+            SensorChart.ChartPen chartPen4 = new SensorChart.ChartPen();
             this.tbSamples = new MetroFramework.Controls.MetroTextBox();
             this.panelLabels.SuspendLayout();
             this.SuspendLayout();
@@ -39,61 +41,52 @@
             // graph
             // 
             this.graph.ChartStyle.AntiAliasing = true;
-            chartPen9.Color = System.Drawing.Color.Black;
-            chartPen9.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            chartPen9.Width = 1F;
-            this.graph.ChartStyle.AvgLinePen = chartPen9;
+            chartPen1.Color = System.Drawing.Color.Black;
+            chartPen1.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            chartPen1.Width = 1F;
+            this.graph.ChartStyle.AvgLinePen = chartPen1;
             this.graph.ChartStyle.BackgroundColorBottom = System.Drawing.Color.DodgerBlue;
             this.graph.ChartStyle.BackgroundColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            chartPen10.Color = System.Drawing.Color.Gold;
-            chartPen10.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            chartPen10.Width = 2F;
-            this.graph.ChartStyle.ChartLinePen = chartPen10;
-            chartPen11.Color = System.Drawing.Color.Black;
-            chartPen11.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            chartPen11.Width = 0.5F;
-            this.graph.ChartStyle.HorizontalGridPen = chartPen11;
+            chartPen2.Color = System.Drawing.Color.Gold;
+            chartPen2.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            chartPen2.Width = 2F;
+            this.graph.ChartStyle.ChartLinePen = chartPen2;
+            chartPen3.Color = System.Drawing.Color.Black;
+            chartPen3.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            chartPen3.Width = 0.5F;
+            this.graph.ChartStyle.HorizontalGridPen = chartPen3;
             this.graph.ChartStyle.ShowAverageLine = true;
             this.graph.ChartStyle.ShowHorizontalGridLines = true;
             this.graph.ChartStyle.ShowVerticalGridLines = false;
-            chartPen12.Color = System.Drawing.Color.DarkRed;
-            chartPen12.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            chartPen12.Width = 1F;
-            this.graph.ChartStyle.VerticalGridPen = chartPen12;
+            chartPen4.Color = System.Drawing.Color.DarkRed;
+            chartPen4.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            chartPen4.Width = 1F;
+            this.graph.ChartStyle.VerticalGridPen = chartPen4;
             this.panelLabels.Controls.SetChildIndex(this.labelName, 0);
             // 
             // tbSamples
             // 
-            this.tbSamples.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbSamples.Lines = new string[0];
-            this.tbSamples.Location = new System.Drawing.Point(4, 331);
-            this.tbSamples.MaxLength = 65535;
+            this.tbSamples.Lines = new string[] {
+        "metroTextBox1"};
+            this.tbSamples.Location = new System.Drawing.Point(5, 274);
+            this.tbSamples.MaxLength = 32767;
             this.tbSamples.Multiline = true;
             this.tbSamples.Name = "tbSamples";
             this.tbSamples.PasswordChar = '\0';
-            this.tbSamples.ReadOnly = true;
-            this.tbSamples.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.tbSamples.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbSamples.SelectedText = "";
-            this.tbSamples.Size = new System.Drawing.Size(395, 129);
+            this.tbSamples.Size = new System.Drawing.Size(394, 176);
             this.tbSamples.TabIndex = 9;
+            this.tbSamples.Text = "metroTextBox1";
             this.tbSamples.UseSelectable = true;
             // 
             // SensorWithTextBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tbSamples);
             this.Name = "SensorWithTextBox";
-            this.Size = new System.Drawing.Size(402, 463);
+            this.Size = new System.Drawing.Size(402, 453);
             this.Controls.SetChildIndex(this.graph, 0);
-            this.Controls.SetChildIndex(this.metroLabel1, 0);
-            this.Controls.SetChildIndex(this.metroLabel2, 0);
-            this.Controls.SetChildIndex(this.metroLabel3, 0);
-            this.Controls.SetChildIndex(this.labelHighest, 0);
-            this.Controls.SetChildIndex(this.LabelLowest, 0);
-            this.Controls.SetChildIndex(this.labelAverage, 0);
             this.Controls.SetChildIndex(this.panelLabels, 0);
             this.Controls.SetChildIndex(this.tbSamples, 0);
             this.panelLabels.ResumeLayout(false);
@@ -105,6 +98,6 @@
 
         #endregion
 
-        private MetroFramework.Controls.MetroTextBox tbSamples;
+        private MetroTextBox tbSamples;
     }
 }

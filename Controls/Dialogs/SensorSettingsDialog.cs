@@ -24,6 +24,9 @@ namespace TempMonitor.Controls.Dialogs
 
         private void RenameDialogForm_Load(object sender, System.EventArgs e)
         {
+
+            
+
             textBox1.SelectAll();
             textBox1.Select();
 
@@ -32,7 +35,6 @@ namespace TempMonitor.Controls.Dialogs
                 metroTrackBar1.Maximum = Options.ChartMaxValue;
                 metroTrackBar1.Minimum = Options.ChartMinValue;
                 metroTrackBar1.Value = NewSettings.AlarmPoint;
-
                 metroToggle1.Checked = NewSettings.SpeechEnabled;
 
             }

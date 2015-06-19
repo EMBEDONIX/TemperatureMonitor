@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using System.Threading;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 using TempMonitor.Controls;
+using TempMonitor.Controls.Dialogs;
 using TempMonitor.Libraries;
 using TempMonitor.Libraries.EventArgs;
 using TempMonitor.UserInterface.Properties;
@@ -54,6 +56,8 @@ namespace TempMonitor.UserInterface
         {
             if (_port != null)
             {
+                sensorPanel.OnDisconnected();
+
                 try
                 {
                     if (_reader != null)
@@ -75,6 +79,8 @@ namespace TempMonitor.UserInterface
                     labelRxState.Text = "NOT CONNECTED";
                     pictureBoxStatus.Image = Resources.disconnected;
                     cbPorts.Enabled = true;
+                    pictureBoxSettings.Enabled = true;
+                    pictureBoxSettings.BackColor = Color.Transparent;
                 }
 
                 return;
@@ -112,6 +118,7 @@ namespace TempMonitor.UserInterface
 
                 if (_port.IsOpen)
                 {
+                    sensorPanel.OnConnected();
                     _reader = new DataReader(_port);
                     _reader.PacketReceived += DateReceived;
                     _reader.Start();
@@ -119,6 +126,8 @@ namespace TempMonitor.UserInterface
                     labelRxState.Text = "CONNECTED";
                     pictureBoxStatus.Image = Resources.connected;
                     cbPorts.Enabled = false;
+                    pictureBoxSettings.Enabled = false;
+                    pictureBoxSettings.BackColor = Color.Red;
                 }
             }
         }
@@ -198,6 +207,16 @@ namespace TempMonitor.UserInterface
         private void cbPorts_MouseClick(object sender, MouseEventArgs e)
         {
             RefreshPresentComPorts();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            sensorPanel.OnDisconnected();
+        }
+
+        private void pictureBoxSettings_Click(object sender, EventArgs e)
+        {
+            sensorPanel.ShowSensorOptionsDialog();
         }
     }
 }

@@ -32,71 +32,11 @@
             SensorChart.ChartPen chartPen2 = new SensorChart.ChartPen();
             SensorChart.ChartPen chartPen3 = new SensorChart.ChartPen();
             SensorChart.ChartPen chartPen4 = new SensorChart.ChartPen();
-            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
-            this.labelHighest = new MetroFramework.Controls.MetroLabel();
-            this.LabelLowest = new MetroFramework.Controls.MetroLabel();
-            this.labelAverage = new MetroFramework.Controls.MetroLabel();
             this.panelLabels = new MetroFramework.Controls.MetroPanel();
             this.labelName = new MetroFramework.Controls.MetroLabel();
             this.graph = new SensorChart.RunnigGraph();
             this.panelLabels.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // metroLabel1
-            // 
-            this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(4, 270);
-            this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(91, 19);
-            this.metroLabel1.TabIndex = 2;
-            this.metroLabel1.Text = "Highest Temp:";
-            // 
-            // metroLabel2
-            // 
-            this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(4, 289);
-            this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(87, 19);
-            this.metroLabel2.TabIndex = 3;
-            this.metroLabel2.Text = "Lowest Temp:";
-            // 
-            // metroLabel3
-            // 
-            this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(4, 308);
-            this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(97, 19);
-            this.metroLabel3.TabIndex = 4;
-            this.metroLabel3.Text = "Average Temp:";
-            // 
-            // labelHighest
-            // 
-            this.labelHighest.AutoSize = true;
-            this.labelHighest.Location = new System.Drawing.Point(107, 270);
-            this.labelHighest.Name = "labelHighest";
-            this.labelHighest.Size = new System.Drawing.Size(46, 19);
-            this.labelHighest.TabIndex = 5;
-            this.labelHighest.Text = "100 °C";
-            // 
-            // LabelLowest
-            // 
-            this.LabelLowest.AutoSize = true;
-            this.LabelLowest.Location = new System.Drawing.Point(107, 289);
-            this.LabelLowest.Name = "LabelLowest";
-            this.LabelLowest.Size = new System.Drawing.Size(46, 19);
-            this.LabelLowest.TabIndex = 6;
-            this.LabelLowest.Text = "100 °C";
-            // 
-            // labelAverage
-            // 
-            this.labelAverage.AutoSize = true;
-            this.labelAverage.Location = new System.Drawing.Point(107, 308);
-            this.labelAverage.Name = "labelAverage";
-            this.labelAverage.Size = new System.Drawing.Size(46, 19);
-            this.labelAverage.TabIndex = 7;
-            this.labelAverage.Text = "100 °C";
             // 
             // panelLabels
             // 
@@ -128,11 +68,6 @@
             // 
             // graph
             // 
-            this.graph.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.graph.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
-            this.graph.Location = new System.Drawing.Point(3, 39);
-            this.graph.Name = "graph";
             this.graph.ChartStyle.AntiAliasing = true;
             chartPen1.Color = System.Drawing.Color.Black;
             chartPen1.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
@@ -155,8 +90,12 @@
             chartPen4.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             chartPen4.Width = 1F;
             this.graph.ChartStyle.VerticalGridPen = chartPen4;
-            this.graph.ScaleMode = SensorChart.ScaleMode.Relative;
-            this.graph.Size = new System.Drawing.Size(396, 228);
+            this.graph.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.graph.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.graph.Location = new System.Drawing.Point(0, 0);
+            this.graph.Name = "graph";
+            this.graph.ScaleMode = SensorChart.ScaleMode.Absolute;
+            this.graph.Size = new System.Drawing.Size(402, 276);
             this.graph.TabIndex = 0;
             this.graph.TimerInterval = 1000;
             this.graph.TimerMode = SensorChart.TimerMode.Disabled;
@@ -165,33 +104,21 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.panelLabels);
-            this.Controls.Add(this.labelAverage);
-            this.Controls.Add(this.LabelLowest);
-            this.Controls.Add(this.labelHighest);
-            this.Controls.Add(this.metroLabel3);
-            this.Controls.Add(this.metroLabel2);
-            this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.graph);
             this.Name = "SensorBase";
-            this.Size = new System.Drawing.Size(402, 331);
+            this.Size = new System.Drawing.Size(402, 276);
             this.Load += new System.EventHandler(this.SensorControl_Load);
             this.panelLabels.ResumeLayout(false);
             this.panelLabels.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         protected SensorChart.RunnigGraph graph;
-        protected MetroFramework.Controls.MetroLabel metroLabel1;
-        protected MetroFramework.Controls.MetroLabel metroLabel2;
-        protected MetroFramework.Controls.MetroLabel metroLabel3;
-        protected MetroFramework.Controls.MetroLabel labelHighest;
-        protected MetroFramework.Controls.MetroLabel LabelLowest;
-        protected MetroFramework.Controls.MetroLabel labelAverage;
         protected MetroFramework.Controls.MetroLabel labelName;
         protected MetroFramework.Controls.MetroPanel panelLabels;
     }
