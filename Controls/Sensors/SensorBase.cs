@@ -8,6 +8,7 @@ using System.Threading;
 using System.Windows.Forms;
 using MetroFramework.Controls;
 using MetroFramework.Interfaces;
+using SensorChart;
 using TempMonitor.Controls.Dialogs;
 using TempMonitor.Controls.Properties;
 using TempMonitor.Controls.Sensors;
@@ -34,13 +35,12 @@ namespace TempMonitor.Controls
         public decimal AlarmPoint { get; private set; }
         public int Id { get; set; }
 
-        private SpeechSynthesizer _speech = new SpeechSynthesizer();
-        private readonly Func<double, double> _runningAverage = SimpleMovingAverage(65535);
+        private Func<double, double> _runningAverage = SimpleMovingAverage(65535);
         private int counter; //to count received samples
         private PictureBox pbEditLabel; //to edit label
         private SensorSettings _settings;
 
-
+        private bool _hasSentSpeech; //To see if we ever sent a audio message to manager
         private SensorSettingsDialog _renameDialog;
 
         public SensorBase()
@@ -50,10 +50,9 @@ namespace TempMonitor.Controls
             HighestSample = 0;
             LowestSample = 0;
             Average = _runningAverage(0);
+            graph.ScaleMode = SensorChart.ScaleMode.Relative;
 
             UpdateLabels();
-            _speech = new SpeechSynthesizer();
-
         }
 
         public SensorBase(SensorOptions options) : this()
@@ -75,7 +74,7 @@ namespace TempMonitor.Controls
             {
                 setting =
                     SerializerManager.DeSerializeObject<SensorSettings>
-                        (SerializerManager.OptionsPath + "sensor" + Id + ".bin");
+                        (SerializerManager.OptionsFolder + "sensor" + Id + ".bin");
             }
             catch (IOException ioe)
             {
@@ -95,7 +94,7 @@ namespace TempMonitor.Controls
                     setting.SensorId = Id;
                     setting.SensorName = "sensor " + Id;
                     setting.AlarmPoint = 80;
-                    SerializerManager.SerializeObject(setting, SerializerManager.OptionsPath + "sensor" + Id + ".bin");
+                    SerializerManager.SerializeObject(setting, SerializerManager.OptionsFolder + "sensor" + Id + ".bin");
                 }
                 catch (IOException ioe)
                 {
@@ -131,9 +130,9 @@ namespace TempMonitor.Controls
 
         protected void UpdateLabels()
         {
-            labelHighest.Text = string.Format("{0:F}", HighestSample) + " °C";
-            LabelLowest.Text = string.Format("{0:F}", LowestSample) + " °C";
-            labelAverage.Text = string.Format("{0:F}", Average) + " °C";
+            //labelHighest.Text = string.Format("MAX: {0:F}", HighestSample) + " °C";
+            //LabelLowest.Text = string.Format("MIN: {0:F}", LowestSample) + " °C";
+            //labelAverage.Text = string.Format("AVR: {0:F}", Average) + " °C";
             graph.SetTotalAverage(Average);
         }
 
@@ -170,18 +169,16 @@ namespace TempMonitor.Controls
                     if (_timer == null) //if we are not already in critical state make new timer
                     {
                         _timer = new Timer();
-                        _timer.Interval = 15000; //TODO put this in global 
+                        _timer.Interval = 2000; //TODO put this in global options
                         _timer.Tick += (sender, args) =>
                         {
                             if (CurrentValue > _settings.AlarmPoint) //if still in critical 
                             {
-                                _speech.SpeakAsyncCancelAll();
-                                _speech.SpeakAsync(critArgs.TextToSpeech);
+                                    Manager.AddSpeech(critArgs.TextToSpeech);
+                                    _hasSentSpeech = true;
+                                    _timer.Interval = 20000; //initial message sent, so increase timer to next message
                             }
                         };
-
-                        _speech.SpeakAsyncCancelAll();
-                        _speech.SpeakAsync(critArgs.TextToSpeech);
                         _timer.Start();
                     }
                     else
@@ -200,8 +197,14 @@ namespace TempMonitor.Controls
                         _timer.Stop();
                         _timer = null;
                     }
-                    _speech.SpeakAsyncCancelAll();
-                    _speech.SpeakAsync(args.TextToSpeech);
+                    if (_settings.SpeechEnabled)
+                    {
+                        if (_hasSentSpeech == true)
+                        {
+                            Manager.AddSpeech(args.TextToSpeech);
+                            _hasSentSpeech = false;
+                        }
+                    }
                 }
                 State = AlarmState.Normal;
             }
@@ -233,7 +236,7 @@ namespace TempMonitor.Controls
             OnSampleReceived(sample);
 
             //Add the point to graph
-            graph.AddValue(sample);
+            graph.AddValue(sample, HighestSample, LowestSample, Average, _settings.AlarmPoint);
         }
 
         
@@ -271,6 +274,7 @@ namespace TempMonitor.Controls
         public void SetName(string name)
         {
             labelName.Text = name;
+            SensorName = name;
         }
 
 
@@ -332,15 +336,33 @@ namespace TempMonitor.Controls
                         {
                             _timer.Stop();
                             _timer = null;
-                            _speech.SpeakAsyncCancelAll();
                         }
                     }
 
                     
-                    SerializerManager.SerializeObject(_settings, SerializerManager.OptionsPath + "sensor" + Id + ".bin");
+                    SerializerManager.SerializeObject(_settings, SerializerManager.OptionsFolder + "sensor" + Id + ".bin");
                 }
             }
 
+        }
+
+        public void SetOptions(SensorOptions options)
+        {
+            Options = options;
+            _runningAverage = SimpleMovingAverage(65535);
+            State = AlarmState.Normal;
+            HighestSample = 0;
+            LowestSample = 0;
+            Average = _runningAverage(0);
+            graph.ScaleMode = SensorChart.ScaleMode.Relative;
+
+            UpdateLabels();
+
+            graph.UpdatOptions(options);
+
+           //labelHighest.Visible = options.ShowLabelAvr;
+           //LabelLowest.Visible = options.ShowLabelAvr;
+           //labelAverage.Visible = options.ShowLabelAvr;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using TempMonitor.Controls;
 
@@ -77,6 +78,7 @@ namespace SensorChart
             SetStyle(ControlStyles.ResizeRedraw, true);
 
             Font = SystemInformation.MenuFont;
+            CurrentSample = new GraphPoint(DateTime.Now, "", 0);
         }
 
         #endregion
@@ -92,12 +94,14 @@ namespace SensorChart
 
         #region *** Member Variables ***
 
+
+        private double _max, _min, _avr, _crt = 0;
         // Amount of currently visible values (calculated from control width and value spacing)
         private int visibleValues;
         // Horizontal value space in Pixels
         private readonly int valueSpacing = 5;
         // The currently highest displayed value, required for Relative Scale Mode
-        private readonly decimal currentMaxValue = 125;
+        private decimal currentMaxValue = 300;
         // Offset value for the scrolling grid
         private int gridScrollOffset;
         // The current average value
@@ -119,6 +123,10 @@ namespace SensorChart
         #endregion
 
         #region *** Properties ***
+
+        public SensorOptions Options = new SensorOptions();
+        public List<GraphPoint>  SamplesList = new List<GraphPoint>();
+        public GraphPoint CurrentSample { get; set; }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content), Category("Appearance"),
          Description("Appearance and Style")]
@@ -197,13 +205,27 @@ namespace SensorChart
             averageTotal = (decimal) average;
         }
 
+        public void UpdatOptions(SensorOptions options)
+        {
+            Options = options;
+            currentMaxValue = Math.Abs(Options.ChartMaxValue - Options.ChartMinValue) + Math.Abs(Options.ChartMinValue);
+            Clear();
+            
+            Invalidate();
+        }
 
         /// <summary>
         ///     Adds a value to the Chart Line
         /// </summary>
         /// <param name="value">progress value</param>
-        public void AddValue(GraphPoint graphPoint)
+        public void AddValue(GraphPoint graphPoint, double max, double min, double avr, double crt)
         {
+
+            _max = max;
+            _min = min;
+            _avr = avr;
+            _crt = crt;
+            CurrentSample = graphPoint;
             if (scaleMode == ScaleMode.Absolute && graphPoint.Value > 100M)
                 throw new Exception(string.Format("Values greater then 100 not allowed in ScaleMode: Absolute ({0})",
                     graphPoint.Value));
@@ -212,7 +234,8 @@ namespace SensorChart
             switch (timerMode)
             {
                 case TimerMode.Disabled:
-                    ChartAppend(graphPoint.Value);
+                    //ChartAppend(graphPoint.Value);
+                    ChartAppend(graphPoint.Value + Math.Abs(Options.ChartMinValue));
                     Invalidate();
                     break;
                 case TimerMode.Simple:
@@ -246,8 +269,12 @@ namespace SensorChart
         /// <param name="value">performance value</param>
         private void ChartAppend(decimal value)
         {
+            //if (Options.ChartMinValue < 0)
+            //{
+            //    value += Math.Abs(Options.ChartMinValue);
+            //}
             // Insert at first position; Negative values are flatten to 0 (zero)
-            drawValues.Insert(0, Math.Max(value, 0));
+            drawValues.Insert(0, value);
 
             // Remove last item if maximum value count is reached
             if (drawValues.Count > MAX_VALUE_COUNT)
@@ -360,10 +387,16 @@ namespace SensorChart
             var currentPoint = new Point();
 
             // Only draw average line when possible (visibleValues) and needed (style setting)
-            if (visibleValues > 0 && ChartStyle.ShowAverageLine)
+            if (visibleValues > 0 && Options.ShowChartAvrLine)
             {
                 averageOfVisibleValues = 0;
                 DrawAverageLine(g);
+            }
+
+            if (visibleValues > 0 && Options.ShowChartCriticalLine)
+            {
+                averageOfVisibleValues = 0;
+                DrawAlarmLine(g);
             }
 
             // Connect all visible values with lines
@@ -380,8 +413,38 @@ namespace SensorChart
 
             // Draw Border on top
             ControlPaint.DrawBorder3D(g, 0, 0, Width, Height, b3dstyle);
+
+            var curText = string.Format("NOW: {0:F}", CurrentSample.Value) + " °C";
+            var maxText = string.Format("MAX: {0:F}", _max) + " °C";
+            var minText = string.Format("MIN: {0:F}", _min) + " °C";
+            var avrText = string.Format("AVR: {0:F}", _avr) + " °C";
+
+
+            using (var b = new SolidBrush(Color.White))
+            {
+                g.DrawString(curText, Font, b, 5, 40);
+                if(Options.ShowChartMaxValue)
+                    g.DrawString(maxText, Font, b, 5, 60);
+                if(Options.ShowChartMinValue)
+                    g.DrawString(minText, Font, b, 5, 80);
+                if(Options.ShowChartAvrValue)
+                    g.DrawString(avrText, Font, b, 5, 100);
+            }
         }
 
+        private void DrawAlarmLine(Graphics g)
+        {
+            var verticalPosition = CalcVerticalPosition((decimal)_crt + Math.Abs(Options.ChartMinValue));
+            var before = ChartStyle.AvgLinePen.Pen.Color;
+            ChartStyle.AvgLinePen.Pen.Color = Color.OrangeRed;
+            var penBeforeSize = ChartStyle.AvgLinePen.Pen.Width;
+
+            ChartStyle.AvgLinePen.Pen.Width *= 2;
+            g.DrawLine(ChartStyle.AvgLinePen.Pen, 0, verticalPosition, Width, verticalPosition);
+
+            ChartStyle.AvgLinePen.Pen.Width = penBeforeSize;
+            ChartStyle.AvgLinePen.Pen.Color = before;
+        }
 
         private void DrawAverageLine(Graphics g)
         {
@@ -391,7 +454,7 @@ namespace SensorChart
             //averageOfVisibleValues = averageOfVisibleValues / visibleValues;
             //int verticalPosition = CalcVerticalPosition(averageOfVisibleValues);
 
-            var verticalPosition = CalcVerticalPosition(averageTotal);
+            var verticalPosition = CalcVerticalPosition((decimal)_avr + Math.Abs(Options.ChartMinValue));
             var before = ChartStyle.AvgLinePen.Pen.Color;
             ChartStyle.AvgLinePen.Pen.Color = Color.SpringGreen;
             g.DrawLine(ChartStyle.AvgLinePen.Pen, 0, verticalPosition, Width, verticalPosition);

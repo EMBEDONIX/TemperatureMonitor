@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusPanel = new MetroFramework.Controls.MetroPanel();
+            this.pictureBoxSettings = new System.Windows.Forms.PictureBox();
             this.labelRxState = new MetroFramework.Controls.MetroLabel();
             this.pictureBoxStatus = new System.Windows.Forms.PictureBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
@@ -37,11 +38,13 @@
             this.cbPorts = new MetroFramework.Controls.MetroComboBox();
             this.sensorPanel = new TempMonitor.Controls.SensorPanel();
             this.statusPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSettings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxStatus)).BeginInit();
             this.SuspendLayout();
             // 
             // statusPanel
             // 
+            this.statusPanel.Controls.Add(this.pictureBoxSettings);
             this.statusPanel.Controls.Add(this.labelRxState);
             this.statusPanel.Controls.Add(this.pictureBoxStatus);
             this.statusPanel.Controls.Add(this.metroLabel1);
@@ -58,6 +61,18 @@
             this.statusPanel.VerticalScrollbarBarColor = true;
             this.statusPanel.VerticalScrollbarHighlightOnWheel = false;
             this.statusPanel.VerticalScrollbarSize = 10;
+            // 
+            // pictureBoxSettings
+            // 
+            this.pictureBoxSettings.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBoxSettings.Image = global::TempMonitor.UserInterface.Properties.Resources.settings;
+            this.pictureBoxSettings.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxSettings.Name = "pictureBoxSettings";
+            this.pictureBoxSettings.Size = new System.Drawing.Size(36, 36);
+            this.pictureBoxSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxSettings.TabIndex = 11;
+            this.pictureBoxSettings.TabStop = false;
+            this.pictureBoxSettings.Click += new System.EventHandler(this.pictureBoxSettings_Click);
             // 
             // labelRxState
             // 
@@ -87,7 +102,7 @@
             this.metroLabel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.metroLabel1.AutoSize = true;
             this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.metroLabel1.Location = new System.Drawing.Point(5, 10);
+            this.metroLabel1.Location = new System.Drawing.Point(45, 9);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(64, 25);
             this.metroLabel1.TabIndex = 8;
@@ -96,7 +111,7 @@
             // btnConnect
             // 
             this.btnConnect.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnConnect.Location = new System.Drawing.Point(268, 8);
+            this.btnConnect.Location = new System.Drawing.Point(309, 8);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(124, 29);
             this.btnConnect.TabIndex = 6;
@@ -109,7 +124,7 @@
             this.cbPorts.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cbPorts.FormattingEnabled = true;
             this.cbPorts.ItemHeight = 23;
-            this.cbPorts.Location = new System.Drawing.Point(74, 8);
+            this.cbPorts.Location = new System.Drawing.Point(115, 8);
             this.cbPorts.Name = "cbPorts";
             this.cbPorts.Size = new System.Drawing.Size(188, 29);
             this.cbPorts.TabIndex = 5;
@@ -138,9 +153,11 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Temperature Monitor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusPanel.ResumeLayout(false);
             this.statusPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSettings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxStatus)).EndInit();
             this.ResumeLayout(false);
 
@@ -156,8 +173,7 @@
         private MetroFramework.Controls.MetroComboBox cbPorts;
         private System.Windows.Forms.PictureBox pictureBoxStatus;
         private MetroFramework.Controls.MetroLabel labelRxState;
-
-
+        private System.Windows.Forms.PictureBox pictureBoxSettings;
     }
 }
 

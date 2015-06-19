@@ -117,6 +117,9 @@
       <DependentUpon>SensorWithTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="SerializerManager.cs" />
+    <Compile Include="TransparentLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dialogs\DialogForm.resx">
