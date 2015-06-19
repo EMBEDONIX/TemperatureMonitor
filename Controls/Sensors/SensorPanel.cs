@@ -105,22 +105,22 @@ namespace TempMonitor.Controls
                 case 1:
                     sensor1.AddSample(sample);
                     if (Options.LoggingEnabled)
-                        _logHolders[0].DataList.Add($"{sample.ReceiveTime:dd-MM-yy hh:mm:ss:fff}\t{sample.Value:F}\r\n");
+                        _logHolders[0].DataList.Add($"{sample.ReceiveTime:dd-MM-yy hh:mm:ss:fff}\t{sample.Value:F}");
                     break;
                 case 2:
                     sensor2.AddSample(sample);
                     if (Options.LoggingEnabled)
-                        _logHolders[1].DataList.Add($"{sample.ReceiveTime:dd-MM-yy hh:mm:ss:fff}\t{sample.Value:F}\r\n");
+                        _logHolders[1].DataList.Add($"{sample.ReceiveTime:dd-MM-yy hh:mm:ss:fff}\t{sample.Value:F}");
                     break;
                 case 3:
                     sensor3.AddSample(sample);
                     if (Options.LoggingEnabled)
-                        _logHolders[2].DataList.Add($"{sample.ReceiveTime:dd-MM-yy hh:mm:ss:fff}\t{sample.Value:F}\r\n");
+                        _logHolders[2].DataList.Add($"{sample.ReceiveTime:dd-MM-yy hh:mm:ss:fff}\t{sample.Value:F}");
                     break;
                 case 4:
                     sensor4.AddSample(sample);
                     if (Options.LoggingEnabled)
-                        _logHolders[3].DataList.Add($"{sample.ReceiveTime:dd-MM-yy hh:mm:ss:fff}\t{sample.Value:F}\r\n");
+                        _logHolders[3].DataList.Add($"{sample.ReceiveTime:dd-MM-yy hh:mm:ss:fff}\t{sample.Value:F}");
                     break;
             }
         }
@@ -211,6 +211,7 @@ namespace TempMonitor.Controls
         public string FileName;
         public List<string> DataList;
         public SensorOptions Options;
+        private string folder;
 
         public LogHolder(string fileName, SensorOptions options)
         {
@@ -218,6 +219,11 @@ namespace TempMonitor.Controls
             FileName = fileName;
             FileName = FileName.Replace(" ", "_");
             Options = options;
+        }
+
+        public void SetFolderName(string toString)
+        {
+            folder = "log" + toString;
         }
 
         public void FlushToDisk()
@@ -243,11 +249,6 @@ namespace TempMonitor.Controls
 
         }
 
-        private string folder;
 
-        public void SetFolderName(string toString)
-        {
-            folder = "log" + toString;
-        }
     }
 }
