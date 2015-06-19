@@ -135,6 +135,8 @@ namespace TempMonitor.Controls
                 sum += samples[i].Value;
                 AddSample(samples[i], j);
             }
+
+            sensorAgg.AddSample(new GraphPoint(samples[0].ReceiveTime, "AGG", sum / 4M, false));
         }
 
         public void OnDisconnected()
